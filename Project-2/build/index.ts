@@ -27,7 +27,6 @@ function Channel1(): void{
 function onPlayChannel1(): void{
     channel1.forEach(sound => {
         setTimeout(() => playSound(sound.key), sound.time)
-
     });
 }
 

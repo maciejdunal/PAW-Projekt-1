@@ -1,10 +1,34 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Project1 = /** @class */ (function () {
     function Project1() {
+        this.inputs = [];
         this.startApp();
     }
     Project1.prototype.startApp = function () {
+        var _this = this;
+        this.numberofInputs = document.querySelector('#numberofinputs');
+        this.numberofInputs.addEventListener("change", function () { return _this.renderInput(); });
         this.getInputs();
-        this.watchInputValues();
+        //this.watchInputValues();
+    };
+    Project1.prototype.renderInput = function () {
+        var _this = this;
+        this.numberofInputs = document.querySelector('#numberofinputs');
+        var value = this.numberofInputs.value;
+        var inputContainer = document.getElementById("box");
+        while (inputContainer.firstChild) {
+            inputContainer.firstChild.remove();
+        }
+        this.inputs = [];
+        for (var i = 0; i < Number(value); i++) {
+            var inputElement = document.createElement('input');
+            /*create element div dla forma
+            create element div dla spinnera*/
+            inputElement.addEventListener('input', function () { return _this.computeData(); });
+            inputContainer.appendChild(inputElement);
+            this.inputs.push(inputElement);
+        }
     };
     Project1.prototype.getInputs = function () {
         this.input1Input = document.querySelector('#input1');
@@ -16,22 +40,25 @@ var Project1 = /** @class */ (function () {
         this.minInput = document.querySelector('#min');
         this.maxInput = document.querySelector('#max');
     };
-    Project1.prototype.watchInputValues = function () {
-        var _this = this;
-        this.input1Input.addEventListener('input', function () { return _this.computeData(); });
-        this.input2Input.addEventListener('input', function () { return _this.computeData(); });
-        this.input3Input.addEventListener('input', function () { return _this.computeData(); });
-        this.input4Input.addEventListener('input', function () { return _this.computeData(); });
-    };
+    /* watchInputValues() {
+         this.input1Input.addEventListener('input', () => this.computeData());
+         this.input2Input.addEventListener('input', () => this.computeData());
+         this.input3Input.addEventListener('input', () => this.computeData());
+         this.input4Input.addEventListener('input', () => this.computeData());
+     }*/
     Project1.prototype.computeData = function () {
-        var input1 = +this.input1Input.value;
-        var input2 = +this.input2Input.value;
-        var input3 = +this.input3Input.value;
-        var input4 = +this.input4Input.value;
-        var sum = input1 + input2 + input3 + input4;
-        var avg = sum / 4;
-        var min = Math.min(input1, input2, input3, input4);
-        var max = Math.max(input1, input2, input3, input4);
+        var values = [];
+        for (var _i = 0, _a = this.inputs; _i < _a.length; _i++) {
+            var input = _a[_i];
+            values.push(Number(input.value));
+        }
+        var sum = 0;
+        for (var i in values) {
+            sum += values[i];
+        }
+        var avg = sum / values.length;
+        var min = Math.min.apply(Math, values);
+        var max = Math.max.apply(Math, values);
         this.showStats(sum, avg, min, max);
     };
     Project1.prototype.showStats = function (sum, avg, min, max) {

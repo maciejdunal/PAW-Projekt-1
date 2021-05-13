@@ -8,26 +8,43 @@ let snareSound: HTMLAudioElement;
 let tinkSound: HTMLAudioElement;
 let tomSound: HTMLAudioElement;
 
+let channel1: string[] = [];
+let channel1recording: boolean = false;
+
 appStart();
-
-
-const channel1: any[] = [];
 
 function appStart(): void {
     Channel1();
     getSounds();
 }
 
+
 function Channel1(): void{
     document.body.addEventListener('keypress', onKeyDown);
-    const btnChannel1Play = document.querySelector('#btnChannel1')
+    const btnChannel1Play = document.querySelector('#Channel1')
     btnChannel1Play.addEventListener('click', onPlayChannel1)
 }
 
 function onPlayChannel1(): void{
     channel1.forEach(sound => {
-        setTimeout(() => playSound(sound.key), sound.time)
+        setTimeout(() => playSound(sound), 100)
     });
+}
+
+
+function startRecording(): void {
+    channel1 = [];
+    channel1recording = true;
+}
+
+function stopRecording(): void {
+    channel1recording = false;
+}
+
+function play(): void {
+    for (let ch1 of this.channel1){
+        playSound(ch1);
+    }
 }
 
 function getSounds(): void {
@@ -46,7 +63,9 @@ function onKeyDown(ev: KeyboardEvent): void {
     console.log(ev);
     const key = ev.key;
     const time = ev.timeStamp;
-    channel1.push({key, time})
+    if (channel1recording) {
+        channel1.push(key);
+    }
     playSound(key);
     console.log(channel1);
 }

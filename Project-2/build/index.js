@@ -7,21 +7,35 @@ var rideSound;
 var snareSound;
 var tinkSound;
 var tomSound;
-appStart();
 var channel1 = [];
+var channel1recording = false;
+appStart();
 function appStart() {
     Channel1();
     getSounds();
 }
 function Channel1() {
     document.body.addEventListener('keypress', onKeyDown);
-    var btnChannel1Play = document.querySelector('#btnChannel1');
+    var btnChannel1Play = document.querySelector('#Channel1');
     btnChannel1Play.addEventListener('click', onPlayChannel1);
 }
 function onPlayChannel1() {
     channel1.forEach(function (sound) {
-        setTimeout(function () { return playSound(sound.key); }, sound.time);
+        setTimeout(function () { return playSound(sound); }, 100);
     });
+}
+function startRecording() {
+    channel1 = [];
+    channel1recording = true;
+}
+function stopRecording() {
+    channel1recording = false;
+}
+function play() {
+    for (var _i = 0, _a = this.channel1; _i < _a.length; _i++) {
+        var ch1 = _a[_i];
+        playSound(ch1);
+    }
 }
 function getSounds() {
     hihatSound = document.querySelector('[data-sound="hihat"]');
@@ -38,7 +52,9 @@ function onKeyDown(ev) {
     console.log(ev);
     var key = ev.key;
     var time = ev.timeStamp;
-    channel1.push({ key: key, time: time });
+    if (channel1recording) {
+        channel1.push(key);
+    }
     playSound(key);
     console.log(channel1);
 }

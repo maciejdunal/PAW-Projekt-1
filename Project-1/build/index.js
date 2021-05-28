@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var Project1 = /** @class */ (function () {
     function Project1() {
         this.inputs = [];
@@ -10,42 +8,69 @@ var Project1 = /** @class */ (function () {
         this.numberofInputs = document.querySelector('#numberofinputs');
         this.numberofInputs.addEventListener("change", function () { return _this.renderInput(); });
         this.getInputs();
-        //this.watchInputValues();
     };
     Project1.prototype.renderInput = function () {
         var _this = this;
         this.numberofInputs = document.querySelector('#numberofinputs');
         var value = this.numberofInputs.value;
-        var inputContainer = document.getElementById("box");
+        var inputContainer = document.getElementById("inputs-container");
         while (inputContainer.firstChild) {
             inputContainer.firstChild.remove();
         }
         this.inputs = [];
-        for (var i = 0; i < Number(value); i++) {
+        var _loop_1 = function (i) {
             var inputElement = document.createElement('input');
-            /*create element div dla forma
-            create element div dla spinnera*/
+            var inputElementId = "i" + i;
+            inputElement.setAttribute("id", inputElementId);
+            inputElement.setAttribute("class", "inputs");
+            var inputSpinner = document.createElement('div');
+            inputSpinner.setAttribute("class", "spinner-border");
+            var inputSpinnerId = "s" + i;
+            inputSpinner.setAttribute("id", inputSpinnerId);
+            inputSpinner.setAttribute("role", "status");
+            inputSpinner.setAttribute("style", "width: 1rem; height: 1rem; margin-left: -50px;");
+            inputSpinner.hidden = true;
+            var deleteButton = document.createElement('button');
+            deleteButton.setAttribute("id", "b" + i);
+            deleteButton.innerText = 'X';
+            deleteButton.addEventListener('click', function (event) {
+                inputContainer.removeChild(inputDiv);
+                var inputCount = Number(_this.numberofInputs.value);
+                inputCount = inputCount - 1;
+                _this.numberofInputs.value = inputCount + '';
+            });
+            var inputDiv = document.createElement('div');
+            inputDiv.id = "div" + i;
+            inputDiv.appendChild(inputElement);
+            inputDiv.appendChild(inputSpinner);
+            inputDiv.appendChild(deleteButton);
+            inputContainer.appendChild(inputDiv);
+            this_1.inputs.push(inputElement);
             inputElement.addEventListener('input', function () { return _this.computeData(); });
-            inputContainer.appendChild(inputElement);
-            this.inputs.push(inputElement);
+            inputElement.addEventListener('input', function () { return _this.inputValidation(inputElementId, inputSpinnerId); });
+            inputElement.addEventListener('change', function () { return _this.inputValidation(inputElementId, inputSpinnerId); });
+        };
+        var this_1 = this;
+        for (var i = 0; i < Number(value); i++) {
+            _loop_1(i);
+        }
+    };
+    Project1.prototype.inputValidation = function (inputElementId, inputSpinnerId) {
+        var currentInput = document.getElementById(inputElementId);
+        var inputSpinner = document.getElementById(inputSpinnerId);
+        if (currentInput.value != '' && isNaN(currentInput.value)) {
+            inputSpinner.hidden = false;
+        }
+        else {
+            inputSpinner.hidden = true;
         }
     };
     Project1.prototype.getInputs = function () {
-        this.input1Input = document.querySelector('#input1');
-        this.input2Input = document.querySelector('#input2');
-        this.input3Input = document.querySelector('#input3');
-        this.input4Input = document.querySelector('#input4');
         this.sumInput = document.querySelector('#sum');
         this.avgInput = document.querySelector('#avg');
         this.minInput = document.querySelector('#min');
         this.maxInput = document.querySelector('#max');
     };
-    /* watchInputValues() {
-         this.input1Input.addEventListener('input', () => this.computeData());
-         this.input2Input.addEventListener('input', () => this.computeData());
-         this.input3Input.addEventListener('input', () => this.computeData());
-         this.input4Input.addEventListener('input', () => this.computeData());
-     }*/
     Project1.prototype.computeData = function () {
         var values = [];
         for (var _i = 0, _a = this.inputs; _i < _a.length; _i++) {

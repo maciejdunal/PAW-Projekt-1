@@ -1,12 +1,6 @@
-import * as Bootstrap from 'bootstrap';
-
 class Project1 {
 
     numberofInputs: HTMLInputElement;
-    input1Input: HTMLInputElement;
-    input2Input: HTMLInputElement;
-    input3Input: HTMLInputElement;
-    input4Input: HTMLInputElement;
 
 
     sumInput: HTMLInputElement;
@@ -24,59 +18,94 @@ class Project1 {
         this.numberofInputs = document.querySelector('#numberofinputs');
         this.numberofInputs.addEventListener("change", () => this.renderInput());
         this.getInputs();
-        //this.watchInputValues();
     }
 
     renderInput() {
         this.numberofInputs = document.querySelector('#numberofinputs');
         const value = this.numberofInputs.value;
-        const inputContainer = document.getElementById("box");
+        const inputContainer = document.getElementById("inputs-container");
         while (inputContainer.firstChild) {
             inputContainer.firstChild.remove();
         }
         this.inputs = [];
 
         for (let i = 0; i < Number(value); i++) {
+
             const inputElement = document.createElement('input');
-            /*create element div dla forma
-            create element div dla spinnera*/
+            const inputElementId = "i" + i;
+            inputElement.setAttribute("id", inputElementId);
+            inputElement.setAttribute("class", "inputs");
+
+            const inputSpinner = document.createElement('div');
+            inputSpinner.setAttribute("class", "spinner-border");
+            const inputSpinnerId = "s"+i;
+            inputSpinner.setAttribute("id", inputSpinnerId);
+            inputSpinner.setAttribute("role", "status");
+            inputSpinner.setAttribute("style", "width: 1rem; height: 1rem; margin-left: -50px;");
+            inputSpinner.hidden = true;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.setAttribute("id", "b" + i);
+            deleteButton.innerText = 'X';
+
+            deleteButton.addEventListener('click', (event: Event) => {
+                inputContainer.removeChild(inputDiv);
+
+                let inputCount = Number(this.numberofInputs.value);
+                inputCount = inputCount -1;
+                this.numberofInputs.value = inputCount + ''
+
+            })
+
+            const inputDiv = document.createElement('div');
+            inputDiv.id = "div" + i;
+            inputDiv.appendChild(inputElement);
+            inputDiv.appendChild(inputSpinner);
+            inputDiv.appendChild(deleteButton);
+
+
+            inputContainer.appendChild(inputDiv);
+            this.inputs.push(<HTMLInputElement>inputElement);
+
 
             inputElement.addEventListener('input', () => this.computeData());
-            inputContainer.appendChild(inputElement);
-            this.inputs.push(inputElement);
+            inputElement.addEventListener('input', () => this.inputValidation(inputElementId,inputSpinnerId));
+            inputElement.addEventListener('change', () => this.inputValidation(inputElementId, inputSpinnerId));
+
         }
 
     }
 
+    inputValidation(inputElementId: string, inputSpinnerId: string) {
+        var currentInput = <HTMLInputElement>document.getElementById(inputElementId);
+        const inputSpinner = document.getElementById(inputSpinnerId);
+        if (currentInput.value != '' && isNaN(currentInput.value as any)) {
+            inputSpinner.hidden = false;
+        }
+        else{
+            inputSpinner.hidden = true;
+        }
+}
+
+
     getInputs() {
-        this.input1Input = document.querySelector('#input1');
-        this.input2Input = document.querySelector('#input2');
-        this.input3Input = document.querySelector('#input3');
-        this.input4Input = document.querySelector('#input4');
         this.sumInput = document.querySelector('#sum');
         this.avgInput = document.querySelector('#avg');
         this.minInput = document.querySelector('#min');
         this.maxInput = document.querySelector('#max');
     }
 
-   /* watchInputValues() {
-        this.input1Input.addEventListener('input', () => this.computeData());
-        this.input2Input.addEventListener('input', () => this.computeData());
-        this.input3Input.addEventListener('input', () => this.computeData());
-        this.input4Input.addEventListener('input', () => this.computeData());
-    }*/
-
     computeData() {
         let values: number[] = [];
         for (var input of this.inputs) {
             values.push(Number(input.value));
         }
-        var sum = 0;
+        let sum = 0;
         for (var i in values) {
             sum += values[i];
         }
 
-        var avg = sum / values.length;
+        const avg = sum / values.length;
 
         const min = Math.min.apply(Math, values);
         const max = Math.max.apply(Math, values);

@@ -31,8 +31,8 @@ export interface Main {
   humidity: number;
 }
 
-
 export interface WeatherResponse {
   weather: Weather[];
+  icon: Weather;
   main: Main;
 };

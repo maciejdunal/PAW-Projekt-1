@@ -15,6 +15,7 @@ export class WeatherComponent implements OnDestroy, OnInit {
   constructor(private weatherClientService: WeatherClientService) {
     this.cityName = '';
     const item = localStorage.getItem('weathers');
+    //
     this.weathers = item === null ? [] : JSON.parse(item);
   }
 

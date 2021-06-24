@@ -1,16 +1,26 @@
-<div>
-  <mat-form-field appearance="outline">
-    <mat-label>City:</mat-label>
+<div class="top-bar">
+  <div class="center-input">
+    <mat-form-field appearance="outline">
+      <mat-label>City:</mat-label>
 
-    <input matInput type="text" id="city" name="city" [(ngModel)]="cityName">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="checkWeather()">Add</button>
-
-  <div *ngFor="let weather of weathers">
-    <div>{{weather.cityName}}</div>
-    <div>{{weather.weatherResponse.main.temp}}</div>
-    <div>{{weather.weatherResponse.main.humidity}}</div>
+      <input matInput type="text" id="city" name="city" [(ngModel)]="cityName">
+    </mat-form-field>
   </div>
-
-
+  <div class="center-button">
+    <button mat-raised-button color="primary" (click)="checkWeather()">Add</button>
+  </div>
 </div>
+
+
+
+
+<div class="cities">
+  <div class="city" *ngFor="let weather of weathers">
+    <div style="text-align: center">{{'icon'}}</div>
+    <div class="cities-city">{{'City: ' + weather.cityName}}</div>
+    <div class="cities-city">{{'Temperature: ' + (weather.weatherResponse.main.temp - 273.15).toFixed(1)}}</div>
+    <div class="cities-city">{{'Humidity: ' + weather.weatherResponse.main.humidity}}</div>
+  </div>
+</div>
+
+

@@ -1,5 +1,8 @@
+<div class="first123">
 <div class="top-bar">
+
   <div class="center-input">
+<!--    <img class="weathericon" src="../../assets/icons/weatherimage.png"/>-->
     <mat-form-field appearance="outline">
       <mat-label>City:</mat-label>
 
@@ -9,18 +12,26 @@
   <div class="center-button">
     <button mat-raised-button color="primary" (click)="checkWeather()">Add</button>
   </div>
+
 </div>
 
 
 
 
-<div class="cities">
-  <div class="city" *ngFor="let weather of weathers">
-    <div style="text-align: center">{{'icon'}}</div>
-    <div class="cities-city">{{'City: ' + weather.cityName}}</div>
-    <div class="cities-city">{{'Temperature: ' + (weather.weatherResponse.main.temp - 273.15).toFixed(1)}}</div>
-    <div class="cities-city">{{'Humidity: ' + weather.weatherResponse.main.humidity}}</div>
+
+<div class="first">
+  <div class="cities">
+    <div class="city" *ngFor="let weather of weathers">
+      <div style="text-align: center"><img src="../../assets/icons/{{'11n@2x'}}.png"/></div>
+      <!--<div style="text-align: center"><img src="../../assets/icons/{{weather.weatherResponse.weather.icon}}.png"/></div>-->
+      <div class="cities-city"><img class="images" src="../../assets/icons/localization.png"/>{{weather.cityName}}</div>
+      <div class="cities-city"><img class="images"
+                                    src="../../assets/icons/temperature.png"/>{{(weather.weatherResponse.main.temp - 273.15).toFixed(1)}}
+      </div>
+      <div class="cities-city"><img class="images"
+                                    src="../../assets/icons/humidity.png"/>{{weather.weatherResponse.main.humidity}}
+      </div>
+    </div>
   </div>
 </div>
-
-
+</div>

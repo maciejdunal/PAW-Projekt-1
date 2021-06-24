@@ -1,44 +1,74 @@
+/*TOP BAR*/
+.weathericon{
+  margin-top: 0.5%;
+  height: 50px;
+}
 .top-bar{
 background-color: white;
   width: 100%;
   height: 26.5%;
-  border-bottom: 1px solid #d8dbe1;
+  border-bottom: 2px solid #d8dbe1;
+
+  z-index: 1;
+
 }
 .center-input{
-  top: 10%;
-  left: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
+
+text-align: center;
+  align-items: center;
+  margin-top: 0.1%;
 }
 .center-button{
-  top: 20%;
-  left: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
+  margin-bottom: 1%;
+  text-align: center;
+  align-items: center;
 }
 
+/*CONTENT*/
+
 .cities{
+margin-top: 10px;
+  overflow-y: auto;
   display: flex;
   min-width: 100px;
-  top: 60%;
-  left: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
-  background-color: white;
+  max-width: 100%;
+  text-align: center;
+  vertical-align: center;
+  align-items: center;
+
   border: 1px solid #d8dbe1;
   border-radius: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .city{
-  padding:50px;
+  padding:20px;
   margin: 10px;
   border: 1px solid #d8dbe1;
-  border-radius: 5px;
-  background-color: #d8dbe1;
+  border-radius: 50px;
+  background-color: white;
+
 
 }
-.cities-city{
-min-width: 120px;
+.cities-city {
+  min-width: 120px;
+margin:10px;
+  text-align: center;
+;
+}
+
+
+
+.images{
+  max-height: 30px;
+  max-width: 30px;
+  text-align: center;
+  vertical-align: middle;
+
 
 }
+
+
+
 

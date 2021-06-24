@@ -33,6 +33,5 @@ export interface Main {
 
 export interface WeatherResponse {
   weather: Weather[];
-  icon: Weather;
   main: Main;
 };

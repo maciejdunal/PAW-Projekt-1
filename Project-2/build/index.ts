@@ -14,7 +14,7 @@ let channel1recordingStart: number;
 
 let channel2: KeyPressedEvent[] = [];
 let channel2recording: boolean = false;
-let channel21recordingStart: number;
+let channel2recordingStart: number;
 
 let channel3: KeyPressedEvent[] = [];
 let channel3recording: boolean = false;
@@ -83,13 +83,13 @@ function onKeyDown(ev: KeyboardEvent): void {
         channel1.push(new KeyPressedEvent(key, time-channel1recordingStart));
     }
     if (channel2recording) {
-        channel2.push(new KeyPressedEvent(key, time-channel1recordingStart));
+        channel2.push(new KeyPressedEvent(key, time-channel2recordingStart));
     }
     if (channel3recording) {
-        channel3.push(new KeyPressedEvent(key, time-channel1recordingStart));
+        channel3.push(new KeyPressedEvent(key, time-channel3recordingStart));
     }
     if (channel4recording) {
-        channel4.push(new KeyPressedEvent(key, time-channel1recordingStart));
+        channel4.push(new KeyPressedEvent(key, time-channel4recordingStart));
     }
     playSound(key);
     console.log(channel1);

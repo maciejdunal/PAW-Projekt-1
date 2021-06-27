@@ -10,7 +10,8 @@
     </mat-form-field>
   </div>
   <div class="center-button">
-    <button mat-raised-button color="primary" (click)="checkWeather()">Add</button>
+    <button class="buttoon" mat-raised-button color="primary" (click)="checkWeather()">Add</button>
+    <button class="buttoon"  mat-raised-button color="warn" (click)="clearLS()">Clear LS</button>
   </div>
 
 </div>
@@ -22,7 +23,6 @@
 <div class="first">
   <div class="cities">
     <div class="city" *ngFor="let weather of weathers">
-<div style="text-align: center"><img src="../../assets/icons/04d.png"/></div>
       <div style="text-align: center"><img src="../../assets/icons/{{weather.weatherResponse.weather[0].icon}}.png"/></div>
       <div class="cities-city"><img class="images" src="../../assets/icons/localization.png"/>{{weather.cityName}}</div>
       <div class="cities-city"><img class="images"

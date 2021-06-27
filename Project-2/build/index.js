@@ -12,7 +12,7 @@ var channel1recording = false;
 var channel1recordingStart;
 var channel2 = [];
 var channel2recording = false;
-var channel21recordingStart;
+var channel2recordingStart;
 var channel3 = [];
 var channel3recording = false;
 var channel3recordingStart;
@@ -67,13 +67,13 @@ function onKeyDown(ev) {
         channel1.push(new KeyPressedEvent(key, time - channel1recordingStart));
     }
     if (channel2recording) {
-        channel2.push(new KeyPressedEvent(key, time - channel1recordingStart));
+        channel2.push(new KeyPressedEvent(key, time - channel2recordingStart));
     }
     if (channel3recording) {
-        channel3.push(new KeyPressedEvent(key, time - channel1recordingStart));
+        channel3.push(new KeyPressedEvent(key, time - channel3recordingStart));
     }
     if (channel4recording) {
-        channel4.push(new KeyPressedEvent(key, time - channel1recordingStart));
+        channel4.push(new KeyPressedEvent(key, time - channel4recordingStart));
     }
     playSound(key);
     console.log(channel1);

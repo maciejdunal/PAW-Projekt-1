@@ -8,7 +8,6 @@ import {WeatherForCity} from "./weather-for-city";
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnDestroy, OnInit {
-
   cityName: string;
   weathers: WeatherForCity[];
 
@@ -18,11 +17,17 @@ export class WeatherComponent implements OnDestroy, OnInit {
     //
     this.weathers = item === null ? [] : JSON.parse(item);
   }
+clearLS(): void{
+  window.onbeforeunload =() => localStorage.clear();
+  window.onbeforeunload =() =>localStorage.removeItem('weathers');
+  document.location.reload(true)
 
+}
   checkWeather(): void {
     this.weatherClientService.getWeatherForCity(this.cityName)
       .subscribe((response) => {
         this.weathers.push(new WeatherForCity( this.cityName,response));
+
       });
   }
  //[aktywuje sie gdy przechodzi sie miedzy Route'mi] Zapisuje do localstorage
